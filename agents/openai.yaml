@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prego Skill Scanner"
+  short_description: "Scan local skills for dangerous behavior"
+  default_prompt: "Use $prego-skill-scanner to audit this local skill directory for dangerous behavior and possible poisoning."
