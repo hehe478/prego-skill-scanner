@@ -61,10 +61,9 @@ Never echo raw secrets in the report.
 
 Always mention meaningful gaps, such as:
 
-- files skipped due to size limits
-- files skipped due to symlink policy
-- archives skipped without unpacking
 - sensitive files not read by design
+- files or folders not reviewed because the user only supplied partial content
+- areas not inspected because executing or installing the target would violate the safety boundaries
 
 ## Reporting Standard
 
