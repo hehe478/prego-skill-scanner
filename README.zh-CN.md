@@ -6,6 +6,36 @@ Prego Skill Scanner 是一个轻量级的安全审查技能，用来在你信任
 
 这个扫描器重点关注高风险模式，包括提示词注入、隐藏行为、数据外传、远程执行、凭证访问、持久化、安装阶段钩子、不安全文件写入，以及各种混淆或编码载荷。它把被扫描的 skill 当作不可信输入处理，不会执行目标里的任何内容。
 
+## 在 Codex 中安装
+
+这个仓库本身就是一个完整的 skill 目录。安装方式就是把整个仓库放到 `$CODEX_HOME/skills/prego-skill-scanner`，或者默认目录 `~/.codex/skills/prego-skill-scanner`。
+
+执行：
+
+```bash
+mkdir -p ~/.codex/skills
+git clone https://github.com/hehe478/prego-skill-scanner.git ~/.codex/skills/prego-skill-scanner
+```
+
+然后重启 Codex，让它重新加载 skill。
+
+后续更新可以执行：
+
+```bash
+git -C ~/.codex/skills/prego-skill-scanner pull
+```
+
+如果你不是用 `git clone`，而是下载 zip 包，那么解压后的最终目录结构至少应当是：
+
+```text
+~/.codex/skills/prego-skill-scanner/
+├── SKILL.md
+├── README.md
+├── agents/
+├── references/
+└── examples/
+```
+
 ## 仓库包含内容
 
 - `LICENSE`：仓库使用的 MIT 许可证。
