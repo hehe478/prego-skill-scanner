@@ -6,9 +6,12 @@ Prego Skill Scanner is a lightweight security-review skill for auditing local Ag
 
 The scanner focuses on high-risk patterns such as prompt injection, hidden behavior, data exfiltration, remote execution, credential access, persistence, install-time hooks, unsafe file writes, and obfuscation. It treats scanned skills as untrusted input and avoids executing anything from the target being reviewed.
 
-## How to Install 
-Take Codex for example
-This repository is already a self-contained skill directory. Install it by placing the whole repository at `$CODEX_HOME/skills/prego-skill-scanner` or `~/.codex/skills/prego-skill-scanner`.
+## How to Install
+
+This repository is already a self-contained skill directory. Install the whole repository into the default skills directory for your agent:
+
+- Codex: `~/.codex/skills/prego-skill-scanner`
+- Claude Code: `~/.claude/skills/prego-skill-scanner`
 
 Run:
 
@@ -17,7 +20,14 @@ mkdir -p ~/.codex/skills
 git clone https://github.com/hehe478/prego-skill-scanner.git ~/.codex/skills/prego-skill-scanner
 ```
 
-Then restart Codex so it can load the new skill.
+Or for Claude Code:
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/hehe478/prego-skill-scanner.git ~/.claude/skills/prego-skill-scanner
+```
+
+Then restart Codex or Claude Code so it can load the new skill.
 
 To update later, run:
 
@@ -25,10 +35,25 @@ To update later, run:
 git -C ~/.codex/skills/prego-skill-scanner pull
 ```
 
-If you downloaded a zip instead of cloning, extract the repository so the final path looks like this:
+Or for Claude Code:
+
+```bash
+git -C ~/.claude/skills/prego-skill-scanner pull
+```
+
+If you downloaded a zip instead of cloning, extract the repository so the final path looks like one of these:
 
 ```text
 ~/.codex/skills/prego-skill-scanner/
+├── SKILL.md
+├── README.md
+├── agents/
+├── references/
+└── examples/
+```
+
+```text
+~/.claude/skills/prego-skill-scanner/
 ├── SKILL.md
 ├── README.md
 ├── agents/
