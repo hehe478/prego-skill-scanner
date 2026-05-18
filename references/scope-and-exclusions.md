@@ -1,36 +1,18 @@
 # Scope And Exclusions
 
-This skill is a lightweight, local, static first-pass scanner. Keep the scope narrow and predictable.
+This branch of the skill is a lightweight, local, manual first-pass review. Keep the scope narrow and predictable.
 
 ## Supported Inputs
 
 - Local skill directories
 - Single local files, including `SKILL.md`
-- Explicitly provided single files even if their extension is outside the directory-mode allowlist
+- Explicitly provided single files even if their extension is outside the usual manual-review focus
 
 Single-file mode scans only the provided file. Do not expand the scan to the parent directory.
 
-## Directory-Mode Text Allowlist
-
-- `.md`
-- `.txt`
-- `.yaml`
-- `.yml`
-- `.json`
-- `.toml`
-- `.py`
-- `.js`
-- `.ts`
-- `.mjs`
-- `.cjs`
-- `.sh`
-- `.bash`
-- `.zsh`
-- `.ps1`
-
 ## Special Filenames
 
-Apply install-time or dependency-oriented checks to:
+Apply install-time or dependency-oriented review to:
 
 - `package.json`
 - `package-lock.json`
@@ -78,9 +60,21 @@ Special case:
 
 These are suspicious by presence only, default to low confidence, and must not be treated as confirmed credential exposure by filename alone.
 
+Also treat these as sensitive by filename pattern unless they are clearly example/sample/template variants:
+
+- filenames that start with `.env`
+- filenames that end with `.env`
+
+Examples:
+
+- `production.env`
+- `staging.env`
+- `.env.local`
+- `.env.production`
+
 ## Default Exclusions
 
-Skip these directories by default:
+Avoid broad or irrelevant traversal by default:
 
 - `.git`
 - `node_modules`
@@ -89,30 +83,8 @@ Skip these directories by default:
 - `__pycache__`
 - `.venv`
 
-Skip these file classes by default:
-
-- binary files
-- archive files
-- files larger than the configured size limit
-- symlinks
-
-## File Size Limit
-
-- Default maximum file size: `512 KiB`
-- Configure with `--max-file-kb`
-- Do not partially scan oversized files
-- Record skipped oversized files in scanner output
-
-## Symlink Policy
-
-- Do not follow symlinks by default
-- Record all skipped symlinks
-- If a symlink resolves outside the target root, record `symlink_outside_root`
-
-## Archive Policy
-
-- Do not unpack archives by default
-- Record archive files as skipped
+- Treat binary files, archives, and out-of-scope symlinks as non-goals unless the user explicitly asks for focused review.
+- Do not enlarge the review scope only because more files are present.
 
 ## Non-Goals
 
@@ -121,6 +93,5 @@ Do not:
 - execute target code
 - install target dependencies
 - fetch URLs from the target unless the user explicitly asks
-- unpack archives
 - perform dynamic malware analysis
 - perform network-based reputation checks
