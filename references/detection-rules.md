@@ -115,6 +115,15 @@ Mark a finding as `Suspicious pattern` when:
 - the surrounding context is ambiguous
 - the pattern may be instructional, quoted, or defensive but still deserves review
 
+## Risk Rating Heuristic
+
+Use this as a supporting heuristic when converting findings into a final report:
+
+- `low`: only suspicious low-confidence patterns, no direct dangerous behavior
+- `medium`: direct dangerous instruction or implementation exists, but without concealment
+- `high`: hidden behavior, persistence, or clearly risky side effects are present
+- `critical`: instruction override, credential theft, remote execution, or exfiltration is paired with concealment or clearly malicious intent
+
 ## False-Positive Boundaries
 
 Do not mark a pattern as confirmed risk only because it appears in:

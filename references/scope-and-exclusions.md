@@ -60,6 +60,18 @@ Special case:
 
 These are suspicious by presence only, default to low confidence, and must not be treated as confirmed credential exposure by filename alone.
 
+Also treat these as sensitive by filename pattern unless they are clearly example/sample/template variants:
+
+- filenames that start with `.env`
+- filenames that end with `.env`
+
+Examples:
+
+- `production.env`
+- `staging.env`
+- `.env.local`
+- `.env.production`
+
 ## Default Exclusions
 
 Avoid broad or irrelevant traversal by default:

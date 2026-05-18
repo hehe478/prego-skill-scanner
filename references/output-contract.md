@@ -12,6 +12,15 @@ Before producing the final report, follow this structure.
 6. `Recommended fixes`
 7. `Coverage limitations`
 
+## Verdict
+
+Write `Verdict` as one natural-language sentence that directly answers whether the skill appears safe to use cautiously and why.
+
+Example:
+
+- `This skill contains medium-risk suspicious instructions; review its install and bootstrap behavior manually before use.`
+- `No dangerous behavior was found in the reviewed material; the skill appears safe to use cautiously based on the inspected files.`
+
 ## Risk Rating
 
 Use one of:
@@ -22,6 +31,13 @@ Use one of:
 - `critical`
 
 Base the rating on dangerous behavior, concealment, persistence, and the likelihood that the skill would cause harmful side effects if followed.
+
+Reference rubric:
+
+- `low`: only low-confidence suspicious patterns, no direct dangerous instruction or implementation
+- `medium`: direct dangerous instruction or implementation is present, but not hidden
+- `high`: hidden behavior, persistence, or materially risky behavior is present
+- `critical`: safety-override attempts, credential theft, remote execution, or exfiltration are combined with concealment or clearly malicious intent
 
 ## Confidence
 
@@ -70,3 +86,15 @@ Always mention meaningful gaps, such as:
 - Prefer high recall for suspicious dangerous-behavior signals.
 - Do not label a finding as confirmed unless the target directly instructs or implements the behavior.
 - Keep the report concrete and evidence-led.
+
+## No-Findings Case
+
+If the review finds no dangerous behavior:
+
+- `Verdict` should explicitly say that no dangerous behavior was found in the reviewed material.
+- `Risk rating` should be `low`.
+- `Confidence` should be `high`.
+- `Confirmed risks` should be empty.
+- `Suspicious patterns` should be empty.
+
+Still include any meaningful `Coverage limitations` if the review scope was partial.
