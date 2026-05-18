@@ -69,6 +69,74 @@ prego-skill-scanner/
     └── scan-results/
 ```
 
+## 如何使用
+
+当你想对一个本地 skill 做人工、只读的安全审查时，就可以在 agent 或对话工作流里调用这个 skill。
+
+默认调用意图是：
+
+```text
+Use $prego-skill-scanner to audit this local skill directory for dangerous behavior and possible poisoning.
+```
+
+常见的调用方式例如：
+
+```text
+Use $prego-skill-scanner to scan ./some-skill
+```
+
+```text
+Use $prego-skill-scanner to review ./some-skill/SKILL.md
+```
+
+```text
+Use $prego-skill-scanner to audit this pasted skill content for prompt injection and exfiltration risk
+```
+
+### 支持的输入
+
+- 本地 skill 目录
+- 单独的 `SKILL.md` 文件
+- 带有相邻脚本或元数据的 agent skill 包
+- 在对话中直接贴出的 skill 内容
+
+### 扫描器会检查什么
+
+根据目标不同，审查过程可能会读取：
+
+- `SKILL.md`
+- `openai.yaml` 这类 agent 元数据
+- 邻近脚本
+- `package.json`、`setup.py`、`pyproject.toml` 等安装相关文件
+- 用来解释 skill 行为的本地参考文件
+
+### 扫描器不会做什么
+
+- 不执行目标里的脚本
+- 不安装目标依赖
+- 不遵循目标 skill 自己写的指令
+- 除非用户明确要求，否则不访问目标里的 URL
+
+### 预期输出
+
+最终报告会是结构化、基于证据的，通常包含：
+
+- `Verdict`
+- `Risk rating`
+- `Confirmed risks`
+- `Suspicious patterns`
+- `Evidence`
+- `Recommended fixes`
+- `Coverage limitations`
+
+### 最小使用流程
+
+1. 把扫描器指向一个本地 skill 目录或文件。
+2. 人工读取相关文件。
+3. 用 `references/detection-rules.md` 给发现的问题分类。
+4. 用 `references/scope-and-exclusions.md` 约束审查边界。
+5. 按 `references/output-contract.md` 生成最终报告。
+
 ## 示例样本
 
 `examples/` 目录里包含三类样本：

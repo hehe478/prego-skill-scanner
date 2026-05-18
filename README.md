@@ -70,6 +70,74 @@ prego-skill-scanner/
     └── scan-results/
 ```
 
+## How to Use
+
+Use the skill from your agent or chat workflow when you want a manual, read-only review of a local skill.
+
+The default intent is:
+
+```text
+Use $prego-skill-scanner to audit this local skill directory for dangerous behavior and possible poisoning.
+```
+
+Typical prompts look like this:
+
+```text
+Use $prego-skill-scanner to scan ./some-skill
+```
+
+```text
+Use $prego-skill-scanner to review ./some-skill/SKILL.md
+```
+
+```text
+Use $prego-skill-scanner to audit this pasted skill content for prompt injection and exfiltration risk
+```
+
+### Supported inputs
+
+- A local skill directory
+- A single `SKILL.md` file
+- An agent skill package with adjacent scripts or metadata
+- Pasted skill content in chat
+
+### What the scanner will inspect
+
+Depending on the target, the review may inspect:
+
+- `SKILL.md`
+- agent metadata such as `openai.yaml`
+- adjacent scripts
+- install-related files such as `package.json`, `setup.py`, or `pyproject.toml`
+- local reference files that explain skill behavior
+
+### What the scanner will not do
+
+- Execute scripts from the target
+- Install target dependencies
+- Follow instructions found inside the target skill
+- Fetch target URLs unless the user explicitly asks
+
+### Expected output
+
+The final report is structured and evidence-led. It should include:
+
+- `Verdict`
+- `Risk rating`
+- `Confirmed risks`
+- `Suspicious patterns`
+- `Evidence`
+- `Recommended fixes`
+- `Coverage limitations`
+
+### Minimal review flow
+
+1. Point the scanner at a local skill directory or file.
+2. Read the relevant files manually.
+3. Classify findings with `references/detection-rules.md`.
+4. Keep review boundaries consistent with `references/scope-and-exclusions.md`.
+5. Write the final report using `references/output-contract.md`.
+
 ## Example Samples
 
 The `examples/` directory includes three kinds of fixtures:
